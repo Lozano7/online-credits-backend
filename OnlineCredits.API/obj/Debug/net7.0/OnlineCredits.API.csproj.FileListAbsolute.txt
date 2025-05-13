@@ -81,3 +81,11 @@ C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\ClosedXML.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\ClosedXML.Parser.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\ExcelNumberFormat.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\RBush.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\SixLabors.Fonts.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\System.IO.Packaging.dll

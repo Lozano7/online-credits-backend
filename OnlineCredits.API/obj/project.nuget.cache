@@ -1,10 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "5MKbt3TGdcjX3ehbS2xXHR7Ezje0mHwfGWCDMmdg2zFtcDKvgR3DbVaQLLPz0FkEtmTEklC2OuofJ6dw2IX7Uw==",
+  "dgSpecHash": "r6YQKZVKrssHCMCFRVOBzMtQxwYGnmKhb7IosSPP2foYtQzyqkDWaYeE4WrnaVqxEYRiuyQ25t77KIM2MAZUrQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.API\\OnlineCredits.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anthony\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\closedxml\\0.104.2\\closedxml.0.104.2.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\closedxml.parser\\1.2.0\\closedxml.parser.1.2.0.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\documentformat.openxml\\3.1.1\\documentformat.openxml.3.1.1.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\documentformat.openxml.framework\\3.1.1\\documentformat.openxml.framework.3.1.1.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.9\\microsoft.aspnetcore.openapi.7.0.9.nupkg.sha512",
@@ -35,6 +40,8 @@
     "C:\\Users\\anthony\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.0\\microsoft.identitymodel.tokens.7.0.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\rbush\\4.0.0\\rbush.4.0.0.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\sixlabors.fonts\\1.0.0\\sixlabors.fonts.1.0.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.2\\sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
@@ -45,6 +52,7 @@
     "C:\\Users\\anthony\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.0.0\\system.identitymodel.tokens.jwt.7.0.0.nupkg.sha512",
+    "C:\\Users\\anthony\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\anthony\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"

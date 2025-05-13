@@ -341,5 +341,69 @@ namespace OnlineCredits.API.Controllers
                 UserEmail = creditRequest.User?.Email
             };
         }
+
+        [HttpGet("export/excel")]
+        [Authorize(Roles = "Analista")]
+        public IActionResult ExportToExcel()
+        {
+            var requests = _context.CreditRequests.Include(r => r.User).ToList();
+
+            using var workbook = new ClosedXML.Excel.XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Solicitudes de Crédito");
+
+            // Encabezados
+            worksheet.Cell(1, 1).Value = "ID";
+            worksheet.Cell(1, 2).Value = "Usuario";
+            worksheet.Cell(1, 3).Value = "Email";
+            worksheet.Cell(1, 4).Value = "Monto Solicitado";
+            worksheet.Cell(1, 5).Value = "Plazo (meses)";
+            worksheet.Cell(1, 6).Value = "Ingreso Mensual";
+            worksheet.Cell(1, 7).Value = "Antigüedad Laboral (años)";
+            worksheet.Cell(1, 8).Value = "Tipo de Empleo";
+            worksheet.Cell(1, 9).Value = "Deuda Actual";
+            worksheet.Cell(1, 10).Value = "Propósito";
+            worksheet.Cell(1, 11).Value = "Estado";
+            worksheet.Cell(1, 12).Value = "Fecha de Creación";
+            worksheet.Cell(1, 13).Value = "Fecha de Actualización";
+            worksheet.Cell(1, 14).Value = "Motivo de Rechazo";
+            worksheet.Cell(1, 15).Value = "Monto Aprobado";
+            worksheet.Cell(1, 16).Value = "Tasa de Interés";
+            worksheet.Cell(1, 17).Value = "Cuota Mensual";
+
+            // Datos
+            int row = 2;
+            foreach (var r in requests)
+            {
+                worksheet.Cell(row, 1).Value = r.Id;
+                worksheet.Cell(row, 2).Value = r.User?.Username;
+                worksheet.Cell(row, 3).Value = r.User?.Email;
+                worksheet.Cell(row, 4).Value = r.Amount;
+                worksheet.Cell(row, 5).Value = r.TermInMonths;
+                worksheet.Cell(row, 6).Value = r.MonthlyIncome;
+                worksheet.Cell(row, 7).Value = r.WorkSeniority;
+                worksheet.Cell(row, 8).Value = r.EmploymentType;
+                worksheet.Cell(row, 9).Value = r.CurrentDebt;
+                worksheet.Cell(row, 10).Value = r.Purpose;
+                worksheet.Cell(row, 11).Value = r.Status;
+                worksheet.Cell(row, 12).Value = r.CreatedAt.ToString("yyyy-MM-dd HH:mm");
+                worksheet.Cell(row, 13).Value = r.UpdatedAt?.ToString("yyyy-MM-dd HH:mm") ?? "";
+                worksheet.Cell(row, 14).Value = r.RejectionReason ?? "";
+                worksheet.Cell(row, 15).Value = r.ApprovedAmount?.ToString() ?? "";
+                worksheet.Cell(row, 16).Value = r.InterestRate?.ToString() ?? "";
+                worksheet.Cell(row, 17).Value = r.MonthlyPayment?.ToString() ?? "";
+                row++;
+            }
+
+            // Formato profesional
+            worksheet.Range(1, 1, 1, 17).Style.Font.Bold = true;
+            worksheet.RangeUsed().SetAutoFilter();
+            worksheet.Columns().AdjustToContents();
+
+            using var stream = new System.IO.MemoryStream();
+            workbook.SaveAs(stream);
+            stream.Seek(0, System.IO.SeekOrigin.Begin);
+            var fileName = $"SolicitudesCredito_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
     }
 } 
