@@ -1,0 +1,8 @@
+app = "onlinecredits-api"
+
+[build]
+  builder = "Dockerfile"
+
+[[mounts]]
+  source = "data"
+  destination = "/data" 
