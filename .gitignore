@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+
+# Database
+*.db
+
+# Logs
+*.log
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Others
+*.tmp 
