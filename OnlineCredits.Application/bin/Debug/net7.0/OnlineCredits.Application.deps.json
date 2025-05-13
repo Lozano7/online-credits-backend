@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "OnlineCredits.Application/1.0.0": {
+        "dependencies": {
+          "OnlineCredits.Core": "1.0.0"
+        },
+        "runtime": {
+          "OnlineCredits.Application.dll": {}
+        }
+      },
+      "OnlineCredits.Core/1.0.0": {
+        "runtime": {
+          "OnlineCredits.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OnlineCredits.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OnlineCredits.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,12 @@
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\bin\Debug\net7.0\OnlineCredits.Core.deps.json
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\bin\Debug\net7.0\OnlineCredits.Core.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\bin\Debug\net7.0\OnlineCredits.Core.pdb
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.csproj.AssemblyReference.cache
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.AssemblyInfoInputs.cache
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.AssemblyInfo.cs
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.csproj.CoreCompileInputs.cache
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\refint\OnlineCredits.Core.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\OnlineCredits.Core.pdb
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Core\obj\Debug\net7.0\ref\OnlineCredits.Core.dll
