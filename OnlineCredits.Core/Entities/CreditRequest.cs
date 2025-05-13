@@ -19,15 +19,15 @@ namespace OnlineCredits.Core.Entities
         public DateTime? UpdatedAt { get; set; }
         public int? EvaluatedBy { get; set; }
         public DateTime? EvaluationDate { get; set; }
-        public string RejectionReason { get; set; }
+        public string? RejectionReason { get; set; }
         public decimal? ApprovedAmount { get; set; }
         public decimal? InterestRate { get; set; }
         public decimal? MonthlyPayment { get; set; }
 
         // Relaciones
-        public User User { get; set; }
-        public User Analyst { get; set; }
-        public ICollection<Document> Documents { get; set; }
-        public ICollection<CreditEvaluation> CreditEvaluations { get; set; }
+        public virtual User? User { get; set; }
+        public virtual User? Analyst { get; set; }
+        public virtual ICollection<Document>? Documents { get; set; }
+        public virtual ICollection<CreditEvaluation>? CreditEvaluations { get; set; }
     }
 } 
