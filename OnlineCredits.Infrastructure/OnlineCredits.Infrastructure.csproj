@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineCredits.Core\OnlineCredits.Core.csproj" />
+    <ProjectReference Include="..\OnlineCredits.Application\OnlineCredits.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

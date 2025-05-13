@@ -220,6 +220,9 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+              "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Application\\OnlineCredits.Application.csproj": {
+                "projectPath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Application\\OnlineCredits.Application.csproj"
+              },
               "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj": {
                 "projectPath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj"
               }

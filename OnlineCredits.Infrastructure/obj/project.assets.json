@@ -639,6 +639,19 @@
           "buildTransitive/net6.0/System.Text.Json.targets": {}
         }
       },
+      "OnlineCredits.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "OnlineCredits.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/OnlineCredits.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnlineCredits.Application.dll": {}
+        }
+      },
       "OnlineCredits.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1499,6 +1512,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "OnlineCredits.Application/1.0.0": {
+      "type": "project",
+      "path": "../OnlineCredits.Application/OnlineCredits.Application.csproj",
+      "msbuildProject": "../OnlineCredits.Application/OnlineCredits.Application.csproj"
+    },
     "OnlineCredits.Core/1.0.0": {
       "type": "project",
       "path": "../OnlineCredits.Core/OnlineCredits.Core.csproj",
@@ -1512,6 +1530,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 7.0.0",
       "Microsoft.IdentityModel.Tokens >= 7.0.0",
+      "OnlineCredits.Application >= 1.0.0",
       "OnlineCredits.Core >= 1.0.0",
       "System.IdentityModel.Tokens.Jwt >= 7.0.0"
     ]
@@ -1541,6 +1560,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Application\\OnlineCredits.Application.csproj": {
+              "projectPath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Application\\OnlineCredits.Application.csproj"
+            },
             "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj": {
               "projectPath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj"
             }

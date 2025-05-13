@@ -41,23 +41,23 @@ namespace OnlineCredits.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     Action = table.Column<string>(type: "TEXT", nullable: false),
                     EntityType = table.Column<string>(type: "TEXT", nullable: false),
                     EntityId = table.Column<int>(type: "INTEGER", nullable: false),
                     Details = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IPAddress = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId1 = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuditLogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AuditLogs_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_AuditLogs_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +79,7 @@ namespace OnlineCredits.Infrastructure.Migrations
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     EvaluatedBy = table.Column<int>(type: "INTEGER", nullable: true),
                     EvaluationDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    RejectionReason = table.Column<string>(type: "TEXT", nullable: false),
+                    RejectionReason = table.Column<string>(type: "TEXT", nullable: true),
                     ApprovedAmount = table.Column<decimal>(type: "TEXT", nullable: true),
                     InterestRate = table.Column<decimal>(type: "TEXT", nullable: true),
                     MonthlyPayment = table.Column<decimal>(type: "TEXT", nullable: true)
@@ -154,9 +154,9 @@ namespace OnlineCredits.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuditLogs_UserId",
+                name: "IX_AuditLogs_UserId1",
                 table: "AuditLogs",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CreditEvaluations_CreditRequestId",
@@ -177,6 +177,18 @@ namespace OnlineCredits.Infrastructure.Migrations
                 name: "IX_Documents_CreditRequestId",
                 table: "Documents",
                 column: "CreditRequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />

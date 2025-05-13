@@ -11,7 +11,7 @@ using OnlineCredits.Infrastructure.Data;
 namespace OnlineCredits.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250513035108_InitialCreate")]
+    [Migration("20250513180541_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,9 +30,6 @@ namespace OnlineCredits.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Details")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -44,16 +41,23 @@ namespace OnlineCredits.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IPAddress")
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId1")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AuditLogs", (string)null);
                 });
@@ -143,7 +147,6 @@ namespace OnlineCredits.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RejectionReason")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
@@ -264,18 +267,20 @@ namespace OnlineCredits.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("OnlineCredits.Core.Entities.AuditLog", b =>
                 {
-                    b.HasOne("OnlineCredits.Core.Entities.User", "User")
+                    b.HasOne("OnlineCredits.Core.Entities.User", null)
                         .WithMany("AuditLogs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("OnlineCredits.Core.Entities.CreditEvaluation", b =>

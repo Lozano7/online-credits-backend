@@ -5,7 +5,9 @@ namespace OnlineCredits.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<CreditRequest> CreditRequests { get; set; }
@@ -15,6 +17,22 @@ namespace OnlineCredits.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<CreditRequest>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.CreditRequests)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // User
             modelBuilder.Entity<User>(entity =>
             {
@@ -81,13 +99,14 @@ namespace OnlineCredits.Infrastructure.Data
                 entity.ToTable("AuditLogs");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                entity.HasOne(e => e.User)
-                      .WithMany(u => u.AuditLogs)
-                      .HasForeignKey(e => e.UserId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(e => e.Action).IsRequired();
+                entity.Property(e => e.EntityType).IsRequired();
+                entity.Property(e => e.EntityId).IsRequired();
+                entity.Property(e => e.Details);
+                entity.Property(e => e.UserId);
+                entity.Property(e => e.UserName);
+                entity.Property(e => e.Timestamp).IsRequired();
             });
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 } 

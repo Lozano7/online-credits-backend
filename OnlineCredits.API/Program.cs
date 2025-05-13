@@ -3,6 +3,9 @@ using OnlineCredits.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using OnlineCredits.Application.Services;
+using OnlineCredits.Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,8 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<OnlineCredits.Infrastructure.Services.PasswordHasher>();
-builder.Services.AddScoped<OnlineCredits.Infrastructure.Services.JwtService>();
+builder.Services.AddScoped<PasswordHasher>();
+builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IAuditService, AuditService>();
 
 // Configuración JWT
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "clave_super_secreta_para_jwt";

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using OnlineCredits.Core.DTOs.CreditRequest;
 using Microsoft.EntityFrameworkCore;
+using OnlineCredits.Application.Services;
 
 namespace OnlineCredits.API.Controllers
 {
@@ -14,34 +15,75 @@ namespace OnlineCredits.API.Controllers
     public class CreditRequestsController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IAuditService _auditService;
 
-        public CreditRequestsController(AppDbContext context)
+        public CreditRequestsController(AppDbContext context, IAuditService auditService)
         {
             _context = context;
+            _auditService = auditService;
         }
 
         // POST: api/creditrequests
         [HttpPost]
         [Authorize(Roles = "Solicitante")]
-        public IActionResult Create([FromBody] CreateCreditRequestDto dto)
+        public async Task<ActionResult<CreditRequestResponseDto>> Create(CreateCreditRequestDto createDto)
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var request = new CreditRequest
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null)
+                return NotFound("Usuario no encontrado");
+
+            var creditRequest = new CreditRequest
             {
-                UserId = userId,
-                Amount = dto.Amount,
-                TermInMonths = dto.TermInMonths,
-                MonthlyIncome = dto.MonthlyIncome,
-                WorkSeniority = dto.WorkSeniority,
-                EmploymentType = dto.EmploymentType,
-                CurrentDebt = dto.CurrentDebt,
-                Purpose = dto.Purpose,
-                Status = dto.MonthlyIncome >= 1500 ? "Aprobado" : "Pendiente",
+                UserId = user.Id,
+                Amount = createDto.Amount,
+                TermInMonths = createDto.TermInMonths,
+                MonthlyIncome = createDto.MonthlyIncome,
+                WorkSeniority = createDto.WorkSeniority,
+                EmploymentType = createDto.EmploymentType,
+                CurrentDebt = createDto.CurrentDebt,
+                Purpose = createDto.Purpose,
+                Status = createDto.MonthlyIncome >= 1500 ? "Aprobado" : "Pendiente",
                 CreatedAt = DateTime.UtcNow
             };
-            _context.CreditRequests.Add(request);
-            _context.SaveChanges();
-            return Ok(new { message = "Solicitud creada exitosamente.", request });
+
+            _context.CreditRequests.Add(creditRequest);
+            await _context.SaveChangesAsync();
+
+            // Registrar la acción en los logs de auditoría
+            await _auditService.LogActionAsync(
+                "CREATE",
+                "CreditRequest",
+                creditRequest.Id,
+                $"Solicitud de crédito creada por {user.Username}",
+                userId,
+                user.Username
+            );
+
+            return CreatedAtAction(nameof(GetById), new { id = creditRequest.Id }, new CreditRequestResponseDto
+            {
+                Id = creditRequest.Id,
+                Amount = creditRequest.Amount,
+                TermInMonths = creditRequest.TermInMonths,
+                MonthlyIncome = creditRequest.MonthlyIncome,
+                WorkSeniority = creditRequest.WorkSeniority,
+                EmploymentType = creditRequest.EmploymentType,
+                CurrentDebt = creditRequest.CurrentDebt,
+                Purpose = creditRequest.Purpose,
+                Status = creditRequest.Status,
+                CreatedAt = creditRequest.CreatedAt,
+                UpdatedAt = creditRequest.UpdatedAt,
+                RejectionReason = creditRequest.RejectionReason,
+                ApprovedAmount = creditRequest.ApprovedAmount,
+                InterestRate = creditRequest.InterestRate,
+                MonthlyPayment = creditRequest.MonthlyPayment,
+                UserId = creditRequest.UserId,
+                UserName = user.Username,
+                UserEmail = user.Email
+            });
         }
 
         // GET: api/creditrequests/mine
@@ -120,10 +162,10 @@ namespace OnlineCredits.API.Controllers
         // PUT: api/creditrequests/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Solicitante")]
-        public IActionResult Update(int id, [FromBody] UpdateCreditRequestDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateCreditRequestDto dto)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var request = _context.CreditRequests.FirstOrDefault(r => r.Id == id && r.UserId == userId);
+            var request = await _context.CreditRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id && r.UserId == userId);
             if (request == null) return NotFound(new { message = "Solicitud no encontrada." });
             if (request.Status != "Pendiente") return BadRequest(new { message = "Solo se puede editar una solicitud en estado Pendiente." });
 
@@ -137,35 +179,167 @@ namespace OnlineCredits.API.Controllers
             // Reaplicar evaluación automática
             request.Status = dto.MonthlyIncome >= 1500 ? "Aprobado" : "Pendiente";
             request.UpdatedAt = DateTime.UtcNow;
-            _context.SaveChanges();
-            return Ok(new { message = "Solicitud actualizada exitosamente.", request });
+            await _context.SaveChangesAsync();
+
+            // Log de auditoría
+            var user = await _context.Users.FindAsync(userId);
+            await _auditService.LogActionAsync(
+                "UPDATE",
+                "CreditRequest",
+                request.Id,
+                $"Solicitud actualizada por {user?.Username}",
+                userId.ToString(),
+                user?.Username ?? ""
+            );
+
+            var response = new CreditRequestResponseDto
+            {
+                Id = request.Id,
+                Amount = request.Amount,
+                TermInMonths = request.TermInMonths,
+                MonthlyIncome = request.MonthlyIncome,
+                WorkSeniority = request.WorkSeniority,
+                EmploymentType = request.EmploymentType,
+                CurrentDebt = request.CurrentDebt,
+                Purpose = request.Purpose,
+                Status = request.Status,
+                CreatedAt = request.CreatedAt,
+                UpdatedAt = request.UpdatedAt,
+                RejectionReason = request.RejectionReason,
+                ApprovedAmount = request.ApprovedAmount,
+                InterestRate = request.InterestRate,
+                MonthlyPayment = request.MonthlyPayment,
+                UserId = request.UserId,
+                UserName = user?.Username,
+                UserEmail = user?.Email
+            };
+            return Ok(new { message = "Solicitud actualizada exitosamente.", solicitud = response });
         }
 
         // PUT: api/creditrequests/{id}/status
         [HttpPut("{id}/status")]
         [Authorize(Roles = "Analista")]
-        public IActionResult UpdateStatus(int id, [FromBody] string newStatus)
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] string newStatus)
         {
-            var request = _context.CreditRequests.Find(id);
+            var request = await _context.CreditRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
             if (request == null) return NotFound();
             request.Status = newStatus;
             request.UpdatedAt = DateTime.UtcNow;
-            _context.SaveChanges();
-            return Ok(new { message = "Estado actualizado.", request });
+            await _context.SaveChangesAsync();
+
+            // Log de auditoría
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            await _auditService.LogActionAsync(
+                "STATUS_CHANGE",
+                "CreditRequest",
+                request.Id,
+                $"Estado cambiado a {newStatus} por {user?.Username}",
+                userId,
+                user?.Username ?? ""
+            );
+
+            var response = new CreditRequestResponseDto
+            {
+                Id = request.Id,
+                Amount = request.Amount,
+                TermInMonths = request.TermInMonths,
+                MonthlyIncome = request.MonthlyIncome,
+                WorkSeniority = request.WorkSeniority,
+                EmploymentType = request.EmploymentType,
+                CurrentDebt = request.CurrentDebt,
+                Purpose = request.Purpose,
+                Status = request.Status,
+                CreatedAt = request.CreatedAt,
+                UpdatedAt = request.UpdatedAt,
+                RejectionReason = request.RejectionReason,
+                ApprovedAmount = request.ApprovedAmount,
+                InterestRate = request.InterestRate,
+                MonthlyPayment = request.MonthlyPayment,
+                UserId = request.UserId,
+                UserName = request.User?.Username,
+                UserEmail = request.User?.Email
+            };
+            return Ok(new { message = "Estado actualizado.", solicitud = response });
         }
 
         // DELETE: api/creditrequests/{id}
         [HttpDelete("{id}")]
         [Authorize(Roles = "Solicitante")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var request = _context.CreditRequests.FirstOrDefault(r => r.Id == id && r.UserId == userId);
+            var request = await _context.CreditRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id && r.UserId == userId);
             if (request == null) return NotFound(new { message = "Solicitud no encontrada." });
             if (request.Status != "Pendiente") return BadRequest(new { message = "Solo se puede eliminar una solicitud en estado Pendiente." });
             _context.CreditRequests.Remove(request);
-            _context.SaveChanges();
-            return Ok(new { message = "Solicitud eliminada exitosamente." });
+            await _context.SaveChangesAsync();
+
+            // Log de auditoría
+            var user = await _context.Users.FindAsync(userId);
+            await _auditService.LogActionAsync(
+                "DELETE",
+                "CreditRequest",
+                request.Id,
+                $"Solicitud eliminada por {user?.Username}",
+                userId.ToString(),
+                user?.Username ?? ""
+            );
+
+            var response = new CreditRequestResponseDto
+            {
+                Id = request.Id,
+                Amount = request.Amount,
+                TermInMonths = request.TermInMonths,
+                MonthlyIncome = request.MonthlyIncome,
+                WorkSeniority = request.WorkSeniority,
+                EmploymentType = request.EmploymentType,
+                CurrentDebt = request.CurrentDebt,
+                Purpose = request.Purpose,
+                Status = request.Status,
+                CreatedAt = request.CreatedAt,
+                UpdatedAt = request.UpdatedAt,
+                RejectionReason = request.RejectionReason,
+                ApprovedAmount = request.ApprovedAmount,
+                InterestRate = request.InterestRate,
+                MonthlyPayment = request.MonthlyPayment,
+                UserId = request.UserId,
+                UserName = request.User?.Username,
+                UserEmail = request.User?.Email
+            };
+            return Ok(new { message = "Solicitud eliminada exitosamente.", solicitud = response });
+        }
+
+        // GET: api/creditrequests/{id}
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Analista")]
+        public async Task<ActionResult<CreditRequestResponseDto>> GetById(int id)
+        {
+            var creditRequest = await _context.CreditRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
+            if (creditRequest == null)
+                return NotFound();
+
+            return new CreditRequestResponseDto
+            {
+                Id = creditRequest.Id,
+                Amount = creditRequest.Amount,
+                TermInMonths = creditRequest.TermInMonths,
+                MonthlyIncome = creditRequest.MonthlyIncome,
+                WorkSeniority = creditRequest.WorkSeniority,
+                EmploymentType = creditRequest.EmploymentType,
+                CurrentDebt = creditRequest.CurrentDebt,
+                Purpose = creditRequest.Purpose,
+                Status = creditRequest.Status,
+                CreatedAt = creditRequest.CreatedAt,
+                UpdatedAt = creditRequest.UpdatedAt,
+                RejectionReason = creditRequest.RejectionReason,
+                ApprovedAmount = creditRequest.ApprovedAmount,
+                InterestRate = creditRequest.InterestRate,
+                MonthlyPayment = creditRequest.MonthlyPayment,
+                UserId = creditRequest.UserId,
+                UserName = creditRequest.User?.Username,
+                UserEmail = creditRequest.User?.Email
+            };
         }
     }
 } 

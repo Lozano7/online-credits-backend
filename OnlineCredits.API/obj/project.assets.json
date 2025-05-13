@@ -829,6 +829,7 @@
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.0",
           "Microsoft.IdentityModel.Tokens": "7.0.0",
+          "OnlineCredits.Application": "1.0.0",
           "OnlineCredits.Core": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "7.0.0"
         },

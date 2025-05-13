@@ -15,3 +15,5 @@ C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Infrastructure\obj\Debug\net7.0\OnlineCredits.Infrastructure.pdb
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Infrastructure\obj\Debug\net7.0\OnlineCredits.Infrastructure.genruntimeconfig.cache
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Infrastructure\obj\Debug\net7.0\ref\OnlineCredits.Infrastructure.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Infrastructure\bin\Debug\net7.0\OnlineCredits.Application.dll
+C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.Infrastructure\bin\Debug\net7.0\OnlineCredits.Application.pdb
