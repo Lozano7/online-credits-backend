@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+buildCommand = "dotnet publish -c Release -o ./publish"
+
+[deploy]
+startCommand = "cd ./publish && dotnet OnlineCredits.API.dll"
+healthcheckPath = "/swagger"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 10 

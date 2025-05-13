@@ -8,6 +8,13 @@ using OnlineCredits.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Asegurar que el directorio de datos existe
+var dataPath = Path.Combine(Directory.GetCurrentDirectory(), "data");
+if (!Directory.Exists(dataPath))
+{
+    Directory.CreateDirectory(dataPath);
+}
+
 // Add services to the container.
 
 builder.Services.AddControllers();
