@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "OnlineCredits.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/OnlineCredits.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnlineCredits.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "OnlineCredits.Core/1.0.0": {
+      "type": "project",
+      "path": "../OnlineCredits.Core/OnlineCredits.Core.csproj",
+      "msbuildProject": "../OnlineCredits.Core/OnlineCredits.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "OnlineCredits.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\anthony\\.nuget\\packages\\": {}
@@ -31,7 +50,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj": {
+              "projectPath": "C:\\Users\\anthony\\Documents\\creditos-online\\online-credits-backend\\OnlineCredits.Core\\OnlineCredits.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
