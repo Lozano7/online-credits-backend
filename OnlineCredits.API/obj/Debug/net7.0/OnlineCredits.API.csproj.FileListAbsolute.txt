@@ -89,9 +89,4 @@ C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\RBush.dll
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\SixLabors.Fonts.dll
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\System.IO.Packaging.dll
-C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\publish\web.config
-C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\publish\appsettings.Development.json
-C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\publish\appsettings.json
-C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\publish\OnlineCredits.API.deps.json
-C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\publish\OnlineCredits.API.runtimeconfig.json
 C:\Users\anthony\Documents\creditos-online\online-credits-backend\OnlineCredits.API\bin\Debug\net7.0\onlinecredits.db
