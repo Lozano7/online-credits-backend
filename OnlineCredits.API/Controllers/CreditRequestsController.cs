@@ -312,7 +312,7 @@ namespace OnlineCredits.API.Controllers
 
         // GET: api/creditrequests/{id}
         [HttpGet("{id}")]
-        [Authorize(Roles = "Analista")]
+        [Authorize(Roles = "Analista,Solicitante")]
         public async Task<ActionResult<CreditRequestResponseDto>> GetById(int id)
         {
             var creditRequest = await _context.CreditRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
