@@ -51,7 +51,7 @@ OnlineCredits.Application (Proyecto de aplicación)
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/Lozano7/online-credits-backend.git
+   git https://github.com/Lozano7/online-credits-backend.git
    cd online-credits-backend
    ```
 
