@@ -64,7 +64,7 @@ OnlineCredits.Application (Proyecto de aplicación)
    ```
 
 4. **(Opcional) Revisar la base de datos:**
-   - **IMPORTANTE!** Si se quiere usar la base de datos incluida, puedes omitir este paso debido a que **El repositorio incluye la base de datos SQLite y las migraciones ya aplicadas**.
+   - **IMPORTANTE!** **El repositorio incluye la base de datos SQLite y las migraciones ya aplicadas, por lo que si se desea se puede omitir este paso**.
 
    - Si deseas limpiar y recrear la base de datos desde cero:
      ```bash
