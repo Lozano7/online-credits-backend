@@ -89,6 +89,12 @@ OnlineCredits.Application (Proyecto de aplicación)
 
 - **Asignación de roles Analista:**
   - El rol **Analista** debe ser asignado manualmente desde la base de datos. Puedes hacerlo fácilmente usando DB Browser for SQLite o cualquier editor de SQLite, modificando el campo `Role` del usuario correspondiente a `Analista` en la tabla `Users`.
+   - En caso de usar la misma base de datos del proyecto existe un usario ya asignado con el rol **Analista** que es el siguiente:
+    ```bash
+   userName: analista_prueba
+   password: Analista123!
+   ```
+   - El modelo entidad relacion se encuentra en la raiz del proyecto con el nombre: modelo-entidad-relación.pdf
 
 ## Características
 - Autenticación basada en JWT
@@ -98,7 +104,4 @@ OnlineCredits.Application (Proyecto de aplicación)
 - Exportación de reportes
 - Gestión de documentos
 - Roles de usuario (Solicitante/Analista)
-
-## Licencia
-Este proyecto está bajo la Licencia MIT.
 
