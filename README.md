@@ -64,13 +64,13 @@ OnlineCredits.Application (Proyecto de aplicación)
    ```
 
 4. **(Opcional) Revisar la base de datos:**
-   - El repositorio incluye la base de datos SQLite y las migraciones ya aplicadas.
+   - **IMPORTANTE!** Si se quiere usar la base de datos incluida, puedes omitir este paso debido a que **El repositorio incluye la base de datos SQLite y las migraciones ya aplicadas**.
+
    - Si deseas limpiar y recrear la base de datos desde cero:
      ```bash
      dotnet ef database drop
      dotnet ef database update
      ```
-   - Si solo quieres usar la base de datos incluida, puedes omitir este paso.
 
 5. **Ejecutar el proyecto:**
    ```bash
